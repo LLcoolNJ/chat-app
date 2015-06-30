@@ -31,6 +31,6 @@
 
 ---
 
-1. server.py : server class to
+1. server.py : server class of the chat application
 
-2. file.lz77 : Compressed file. size: 9,033 bytes
+2. client.py : client class of the chat application
