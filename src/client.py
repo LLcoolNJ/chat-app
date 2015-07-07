@@ -48,7 +48,7 @@ class Client:
             to the server which brodcast it to all other user.
             And if message is from server then it output it to screen.
         """
-        CONNECTION_LIST = [sys.stdin, self.sock]
+        CONNECTIONS = [sys.stdin, self.sock]
         try:
             self.sock.connect(self.getAdd())
             self.sock.send(self.password)
@@ -63,7 +63,7 @@ class Client:
         print 'Connected to host'
         self.prompt()
         while True:
-            rSocket, wSocket, eSocket = select.select(CONNECTION_LIST,[], [])
+            rSocket, wSocket, eSocket = select.select(CONNECTIONS,[], [])
             
             for s in rSocket:
                 if s == self.sock:
@@ -72,6 +72,7 @@ class Client:
                         print '\nDisconnected'
                         sys.exit()
                     else:
+                        print
                         sys.stdout.write(msg)
                         self.prompt()
                 else:
@@ -80,6 +81,13 @@ class Client:
                     self.prompt()
                         
 if __name__ == '__main__':
-    print "usage client.py Clinet-Name Handle Server-Password Server-IP Server-PORT"
-    client = Client(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], int(sys.argv[5]))
-    client.conServer()
+    try:
+        if sys.argv[1] == '-h' or sys.argv[1] == '--h' or sys.argv[1] == '-help': 
+            print "usage client.py [Clinet-Name Handle Server-Password Server-IP | -h | --h | -help]"
+        else:
+            client = Client(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], 50007)
+            client.conServer()
+    except IndexError:
+        print 'Invalid Input format'
+        print "usage client.py [Clinet-Name Handle Server-Password Server-IP | -h | --h | -help]"
+        exit(1)

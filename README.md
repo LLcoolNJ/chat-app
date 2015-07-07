@@ -34,3 +34,9 @@
 1. server.py : server class of the chat application
 
 2. client.py : client class of the chat application
+
+##Includes
+
+---
+
+It is only supported in linux or in cygwin console.
